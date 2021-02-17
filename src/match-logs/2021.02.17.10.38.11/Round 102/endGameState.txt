@@ -1,6 +1,0 @@
-Match seed: 14124
-
-The winner is: A - Reference Bot
-
-A - Reference Bot- score:1229 health:14
-B - Reference Bot- score:1148 health:0

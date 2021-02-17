@@ -1,3 +1,0 @@
-Command: nothing
-Execution time: 1000ms
-Exception: null

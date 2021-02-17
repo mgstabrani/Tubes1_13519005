@@ -1,5 +1,0 @@
-Config for player A : ./reference-bot/javascript
-./reference-bot/javascript/
-Config for player B : ./java
-./java/target
-java.lang.Exception: No implementation found for: za.co.entelect.challenge.game.contracts.bootstrapper.GameEngineBootstrapper

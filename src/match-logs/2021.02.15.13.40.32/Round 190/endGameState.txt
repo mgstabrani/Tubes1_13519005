@@ -1,0 +1,12 @@
+Match seed: 26707
+
+The winner is: B - Reference Bot
+
+A - Brendan- score:1041 health:0
+B - Reference Bot- score:1565 health:164
+=======================================
+Referee messages
+=======================================
+DoNothingsCount for @Player(1) reached a count of 3 @Round(127)
+DoNothingsCount for @Player(1) reached a count of 3 @Round(131)
+DoNothingsCount for @Player(1) reached a count of 3 @Round(157)

@@ -1,0 +1,11 @@
+Match seed: 11080
+
+The game ended in a tie
+
+A - James- score:64 health:350
+B - James- score:64 health:350
+=======================================
+Referee messages
+=======================================
+DoNothingsCount for @Player(1) reached a count of 3 @Round(3)
+DoNothingsCount for @Player(2) reached a count of 3 @Round(3)

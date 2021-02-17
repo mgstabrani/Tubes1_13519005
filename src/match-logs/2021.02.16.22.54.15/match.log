@@ -1,0 +1,4 @@
+Config for player A : ./starter-bots/java
+./starter-bots/java/target
+Config for player B : ./reference-bot/java
+java.nio.file.NoSuchFileException: ./reference-bot/java

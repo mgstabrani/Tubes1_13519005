@@ -1,7 +1,6 @@
 # Pemanfaatan Algoritma Greedy dalam Aplikasi Permainan “Worms”
-
 ## Penjelasan singkat algoritma greedy yang diimplementasikan
-
+Algoritma Greedy yang kami gunakan adalah greedy by location yaitu strategi yang memprioritaskan berdasarkan posisi-posisi cacing. Kami mengincar lokasi tengah karena lokasi tengah paling terakhir menjadi lava.
 ## Requirement dan Instalasi Program
 ### Requirement
 - [Java (minimal Java 8)](https://www.oracle.com/java/technologies/javase/javasejdk8-downloads.html)

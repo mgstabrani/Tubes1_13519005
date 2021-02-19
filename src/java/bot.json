@@ -1,5 +1,5 @@
 {
-	"botLocation": "/target",
-	"botFileName": "../../bin/Wonderboys.jar",
+	"botLocation": "/../../bin",
+	"botFileName": "WonderBoys.jar",
 	"botLanguage": "java"
 }

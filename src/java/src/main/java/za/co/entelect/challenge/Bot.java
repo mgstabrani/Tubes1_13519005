@@ -5,6 +5,7 @@ import za.co.entelect.challenge.entities.*;
 import za.co.entelect.challenge.enums.CellType;
 import za.co.entelect.challenge.enums.Direction;
 
+import java.lang.annotation.Target;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -31,20 +32,41 @@ public class Bot {
 
     public Command run() {
 
-        Worm enemyWorm = getFirstWormInRange();
-        if (enemyWorm != null) {
-            Direction direction = resolveDirection(currentWorm.position, enemyWorm.position);
-            return new ShootCommand(direction);
+        MyWorm myTeam = getCurrentWorm(gameState);
+        List<Cell> surround = getSurroundingCells(myTeam.position.x, myTeam.position.y);
+        if (gameState.map[myTeam.position.x][myTeam.position.y].type == CellType.LAVA) {
+            for (Cell cell : surround) {
+                if (cell.type != CellType.LAVA) {
+                    if (cell.type == CellType.DIRT) {
+                        return new DigCommand(cell.x, cell.y);
+                    }
+                    return new MoveCommand(cell.x, cell.y);
+                }
+            }
         }
 
-        List<Cell> surroundingBlocks = getSurroundingCells(currentWorm.position.x, currentWorm.position.y);
-        int cellIdx = random.nextInt(surroundingBlocks.size());
+        Worm enemy = getFirstWormInRange();
+        if (enemy != null) {
+            Direction dir = resolveDirection(currentWorm.position, enemy.position);
+            return new ShootCommand(dir);
+        }
 
-        Cell block = surroundingBlocks.get(cellIdx);
-        if (block.type == CellType.AIR) {
-            return new MoveCommand(block.x, block.y);
-        } else if (block.type == CellType.DIRT) {
-            return new DigCommand(block.x, block.y);
+        for (Cell num : surround) {
+            if (num.powerUp != null) {
+                return new MoveCommand(num.x, num.y);
+            }
+        }
+
+        Direction now = toCenter(myTeam.position);
+        if (now != null) {
+                Cell c = surround.stream()
+                        .filter(w -> (w.x == myTeam.position.x + now.x) && (w.y == myTeam.position.y + now.y))
+                        .findFirst()
+                        .get();
+                if (c.type.equals(CellType.DIRT)) {
+                    return new DigCommand(myTeam.position.x + now.x, myTeam.position.y + now.y);
+                }
+                return new MoveCommand(myTeam.position.x + now.x, myTeam.position.y + now.y);
         }
 
         return new DoNothingCommand();
@@ -142,22 +164,26 @@ public class Bot {
         return Direction.valueOf(builder.toString());
     }
 
-    public Worm getApproachableOppenent (){
-        Position positionA = opponent.worms[0].position;
-        Position positionB = opponent.worms[1].position;
-        Position positionC = opponent.worms[2].position;
-        Position myPosition; 
-        int i = 0;
-        while(i < 3 && gameState.myPlayer.worms[i] != currentWorm){
-            if(gameState.myPlayer.worms[i] != currentWorm){
-                myPosition = gameState.myPlayer.worms[i].position;
-            }
-            i++;
+    private Direction toCenter(Position now) {
+        if (now.x < 16 && now.y < 16) {
+            return Direction.SE;
+        } else if (now.x < 16 && now.y == 16) {
+            return Direction.E;
+        } else  if (now.x < 16) {
+            return  Direction.NE;
+        } else  if (now.x == 16 && now.y < 16) {
+            return Direction.S;
+        } else  if (now.x == 16 && now.y == 16) {
+            return null;
+        } else  if (now.x == 16) {
+            return  Direction.N;
+        } else  if (now.y < 16) {
+            return  Direction.SW;
+        } else  if (now.y == 16) {
+            return  Direction.W;
+        } else {
+            return  Direction.NW;
         }
-        int distanceA = euclideanDistance(positionA.x, positionA.y, myPosition.x, myPlayer.y) 
-        int distanceB = euclideanDistance(positionB.x, positionB.y, myPosition.x, myPlayer.y) 
-        int distanceC = euclideanDistance(positionC.x, positionC.y, myPosition.x, myPlayer.y) 
-
-        return opponent.worms[0].position;
     }
+
 }
